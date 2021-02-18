@@ -1,10 +1,13 @@
-import 'package:AGRO_FARMER/Custom_Widgets/SlideRight.dart';
-import 'package:AGRO_FARMER/Custom_Widgets/progressdialog.dart';
-import 'package:AGRO_FARMER/Screens/navviewpage.dart';
-import 'package:AGRO_FARMER/style/theme.dart';
-import 'package:AGRO_FARMER/utils/bubble_indication_painter.dart';
+
+import 'package:agro_farm/Custom_Widgets/progressdialog.dart';
+import 'package:agro_farm/Screens/navviewpage.dart';
+import 'package:agro_farm/style/theme.dart';
+import 'package:agro_farm/utils/bubble_indication_painter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +26,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
 
+    FirebaseAuth firebaseAuth= FirebaseAuth.instance;
+
+    FirebaseFirestore firebaseFirestore= FirebaseFirestore.instance;
     
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -34,8 +40,6 @@ class _LoginPageState extends State<LoginPage>
   final FocusNode myFocusNodeEmail = FocusNode();
   final FocusNode myFocusNodeName = FocusNode();
   final FocusNode myFocusNodePhone = FocusNode();
-  final FocusNode myFocusNodePhoneforOTP = FocusNode();
-    final FocusNode myFocusNodeOTP = FocusNode();
 
   TextEditingController loginEmailController = new TextEditingController();
   TextEditingController loginPasswordController = new TextEditingController();
@@ -88,16 +92,16 @@ class _LoginPageState extends State<LoginPage>
                           Padding(
                             padding: EdgeInsets.only(top: 75.0),
                             
-                              child: Hero(
-                                tag: "mytag",
-                                child: Container(
+                              child:  Container(
                                   decoration: BoxDecoration(),
                                   height: 150,
                                   width: 150,
-                                  child: CircleAvatar(
-                                    backgroundImage: AssetImage("images/farmer.jpg")))),
-                            
-                            ),
+                                  child: Hero(
+                                    tag: "farmer",
+                                     child: CircleAvatar(
+                                      backgroundImage: AssetImage("images/farmer.jpg")),
+                                  ))),
+                      
                         
                           Padding(
                             padding: EdgeInsets.only(top: 20.0),
@@ -149,8 +153,6 @@ class _LoginPageState extends State<LoginPage>
     myFocusNodeEmail.dispose();
     myFocusNodeName.dispose();
     myFocusNodePhone.dispose();
-    myFocusNodeOTP.dispose();
-    myFocusNodePhoneforOTP.dispose();
     _pageController?.dispose();
     super.dispose();
   }
@@ -258,9 +260,9 @@ class _LoginPageState extends State<LoginPage>
                         padding: EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          focusNode: myFocusNodePhone,
+                          focusNode: myFocusNodeEmailLogin,
                           controller: loginEmailController,
-                          keyboardType: TextInputType.phone,
+                          keyboardType: TextInputType.emailAddress,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
                               fontSize: 16.0,
@@ -485,19 +487,57 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Future<void> _loginAuth(BuildContext context) async{
+    
+    if(loginEmailController.text.isEmpty || !loginEmailController.text.isEmail){
+      Fluttertoast.showToast(msg: "Enter the correct email address..",backgroundColor: Colors.red);
+    }
+    else if(loginPasswordController.text.isEmpty){
+      Fluttertoast.showToast(msg: "Password cannot be empty!",backgroundColor: Colors.red);
+    }
+    else if(loginPasswordController.text.length<8){
+      Fluttertoast.showToast(msg: "Invalid Password",backgroundColor: Colors.red);
+    }
+
+    else{
+      await _loginFarmerAuth(context); 
+    }
+     
+  }
+
+  Future<void> _loginFarmerAuth(BuildContext context) async{
+
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context)
       {
         return ProgressDialog(message:"Logging in...");
       }
 
     );
-    await Future.delayed(Duration(seconds: 5)).then((value) {
-      Navigator.of(context).pop();
-      Navigator.push(context, SlideRightRoute(page: NavViewPage()));
-    });
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: loginEmailController.text,
+      password: loginPasswordController.text
+     );
+     Navigator.pop(context);
+     Fluttertoast.showToast(msg: "Login Successful",backgroundColor: Colors.blue);
+     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> NavViewPage()), (route) => false);
+
+    } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+        Navigator.pop(context);
+        Fluttertoast.showToast(msg: "No user found for that email",backgroundColor: Colors.red);
+        print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+        Navigator.pop(context);
+        Fluttertoast.showToast(msg: "Wrong password provided for that user.",backgroundColor: Colors.red);
+        print('Wrong password provided for that user.');
+    }
+  }
+    
+    
   }
 
   Widget _buildSignUp(BuildContext context) {
@@ -571,7 +611,7 @@ class _LoginPageState extends State<LoginPage>
                                 FontAwesomeIcons.phoneAlt,
                                 color: Colors.green,
                               ),
-                              hintText: "Phone",
+                              hintText: "Phone number",
                               hintStyle: TextStyle(
                                   fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                             ),
@@ -733,8 +773,8 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () =>
-                        showInSnackBar("Signup")),
+                    onPressed: _signUpFarmer
+                    )
               ),
               
             ], 
@@ -742,6 +782,59 @@ class _LoginPageState extends State<LoginPage>
         ],
       ),
     );
+  }
+
+  _signUpFarmer() async{
+      if(signupNameController.text.isEmpty){
+        Fluttertoast.showToast(msg: "Name cannot be empty!",backgroundColor: Colors.red);
+      }
+
+      else if(signupPhoneController.text.isEmpty){
+        Fluttertoast.showToast(msg: "Phone cannot be empty!",backgroundColor: Colors.red);
+      }
+
+      else if(signupEmailController.text.isEmpty){
+        Fluttertoast.showToast(msg: "Email cannot be empty!",backgroundColor: Colors.red);
+      }
+
+      else if(signupPasswordController.text.isEmpty){
+        Fluttertoast.showToast(msg: "Password cannot be empty!",backgroundColor: Colors.red);
+      }
+
+      else if(signupConfirmPasswordController.text.isEmpty || signupPasswordController.text!=signupConfirmPasswordController.text){
+        Fluttertoast.showToast(msg: "Re-enter the password!",backgroundColor: Colors.red);
+      }
+
+      else{
+
+      showDialog(
+      context: context,
+      // barrierDismissible: false,
+      builder: (BuildContext context)
+      {
+        return ProgressDialog(message:"Registering...Please Wait");
+      }
+      );
+      await _registerFarmerFirebase();
+
+      Navigator.of(context).pop();
+      Fluttertoast.showToast(msg: "Registration Successful!",backgroundColor: Colors.green);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>LoginPage()));
+    }
+  }
+
+  Future<void> _registerFarmerFirebase()async{
+    Map<String,dynamic> farmerData={
+      "email":signupEmailController.text,
+      "name":signupNameController.text,
+      "phone number":signupPhoneController.text,
+    };
+    await firebaseAuth.createUserWithEmailAndPassword(
+      email: signupEmailController.text.toString(),
+      
+      password: signupPasswordController.text.toString(), 
+    );
+    await firebaseFirestore.collection("Farmers").doc(signupEmailController.text).set(farmerData);
   }
 
   // ignore: unused_element

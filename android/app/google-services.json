@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1042004106805",
+    "project_id": "agrofarm-kuhackfest",
+    "storage_bucket": "agrofarm-kuhackfest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042004106805:android:8127fedf6e48b4ca535b7c",
+        "android_client_info": {
+          "package_name": "com.example.agro_farm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042004106805-surtcmh17ra1n3vo4bcto82r15q4rcrt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.agro_farm",
+            "certificate_hash": "9a97105acdd1426607cba2bc0fa666a3a931c038"
+          }
+        },
+        {
+          "client_id": "1042004106805-pceip0eudvpe05a7mobi7tlaohjp6u0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxKQd7l8UXnDALfh15_45yqQrA4BMe_O8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042004106805-pceip0eudvpe05a7mobi7tlaohjp6u0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

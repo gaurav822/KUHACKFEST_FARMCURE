@@ -1,5 +1,6 @@
 
-import 'package:AGRO_FARMER/Custom_Widgets/progressdialog.dart';
+
+import 'package:agro_farm/Custom_Widgets/progressdialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';

@@ -1,13 +1,18 @@
 
-import 'package:AGRO_FARMER/Screens/loginpage.dart';
-import 'package:AGRO_FARMER/Screens/navviewpage.dart';
-import 'package:AGRO_FARMER/Screens/navviews/homepage.dart';
-import 'package:AGRO_FARMER/Screens/splashScreen.dart';
+
+import 'package:agro_farm/Screens/loginpage.dart';
+import 'package:agro_farm/Screens/navviewpage.dart';
+import 'package:agro_farm/Screens/navviews/homepage.dart';
+import 'package:agro_farm/Screens/splashScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.green
       ),
-      initialRoute: NavViewPage.idScreen,
+      initialRoute: SplashScreen.idScreen,
         routes: {
           LoginPage.idScreen :(context)=> LoginPage(),
 
