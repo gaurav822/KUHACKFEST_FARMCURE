@@ -1,7 +1,9 @@
 import 'package:agro_farm/helper/imagehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatefulWidget {
    static const String idScreen="home";
@@ -106,6 +108,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async{
+              
+            Database database= await _openDB();
+            List result=await database.query("usercart");
+            print(result);
+          },
+        ),
         appBar: searchBar.build(context),
         body: SingleChildScrollView(
             child: Wrap(
@@ -115,21 +126,8 @@ class _HomePageState extends State<HomePage> {
              alignment: WrapAlignment.start,
               children: [
                  
-                for(int i=0;i<cropsDetails.length;i++) _eachCropsCard(cropsDetails[i]['image'],cropsDetails[i]['name'],cropsDetails[i]['price'])
+                for(int i=0;i<cropsDetails.length;i++) _eachCropsCard(cropsDetails[i]['image'],cropsDetails[i]['name'],cropsDetails[i]['price'],cropsDetails[i]['quantity'],i)
               
-                // _eachCropsCard(wheat, "wheat","Rs 1000"),
-                // _eachCropsCard(mustard,"mustard", "Rs 1000"),
-                // _eachCropsCard(tur,"tur", "Rs 1000"),
-                // _eachCropsCard(urad, "urad", "Rs 1000"),
-                // _eachCropsCard(ginger,"ginger", "Rs 1000"),
-                // _eachCropsCard(moong, "moong","Rs 1000"),
-                // _eachCropsCard(jowar,"jowar", "Rs 1000"),
-                // _eachCropsCard(chilli,"chilli" ,"Rs 1000"),
-                // _eachCropsCard(bajra, "bajra","Rs 1000"),
-                // _eachCropsCard(ragi, "ragi","Rs 1000"),
-                // _eachCropsCard(rapeseed,"rapeseed", "Rs 1000"),
-                // _eachCropsCard(redgram,"redgram", "Rs 1000"),
-                // _eachCropsCard(groundnut,"groundnut", "Rs 1000"),
               ],
             
           ),
@@ -139,7 +137,7 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  Widget _eachCropsCard(String image,String name,String price){
+  Widget _eachCropsCard(String image,String name,String price, int quant, int i){
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -154,8 +152,9 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              cropDetails(name,price,image),
-              cropImage(image)
+              cropDetails(name,price,image,quant,i),
+              cropImage(image),
+              
             ],
           ),
         ),
@@ -163,7 +162,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget cropDetails(String name,String price,String image){
+  Widget cropDetails(String name,String price,String image,int quantity,int i){
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       
@@ -172,12 +171,26 @@ class _HomePageState extends State<HomePage> {
         Text(name,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
         Text(price+" per kg"),
         
-                    ClipRRect(
+            ClipRRect(
             borderRadius: BorderRadius.circular(10),
-                    child: FlatButton(
+              child: FlatButton(
               color: Colors.green,
               child: Text("Add to Cart",style: TextStyle(color: Colors.white),),
-              onPressed: (){},
+              onPressed: () async{
+                Database database= await _openDB();
+                Map<String,dynamic> cartData ={
+                "id":i,
+                "cropname": name,
+                "quantity": cropsDetails[i]['quantity'],  // use same name as column name
+                "cropImageUrl": image,
+                };
+                await database.insert("usercart", cartData);
+                Fluttertoast.showToast(msg: "Added to Cart!");
+                cropsDetails[i]['quantity']=0;
+                setState(() {
+                  
+                });
+              },
             ),
           ),
 
@@ -186,21 +199,33 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                
                 Text("Quantity"),
                 SizedBox(width: 20,),
                 GestureDetector(
                   onTap: (){
                     // _quantity--;
                     setState(() {
-                      
+                      if(cropsDetails[i]['quantity']>0){
+                         cropsDetails[i]['quantity']--;
+                      }
+                     
                     });
                   },
                   child: Text("-",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                 SizedBox(width: 20,),
-                Text("0",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                Text(quantity.toString(),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
                 SizedBox(width: 20,),
-                Text("+",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                GestureDetector(
+                  onTap: (){
+                    // _quantity--;
+                    setState(() {
+                      
+                    cropsDetails[i]['quantity']++;
+                      
+                    
+                    });
+                  },
+                  child: Text("+",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
               ],
             ),
           )
@@ -222,4 +247,8 @@ class _HomePageState extends State<HomePage> {
         ),
     );
   }
+}
+
+Future<Database>_openDB() async{
+    return openDatabase(await getDatabasesPath()+"/my_db.db");
 }

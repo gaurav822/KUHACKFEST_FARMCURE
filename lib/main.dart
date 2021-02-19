@@ -7,6 +7,7 @@ import 'package:agro_farm/Screens/splashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:sqflite/sqflite.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +17,10 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+    _createDatabase();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       // defaultTransition: Transition.leftToRight,
@@ -39,7 +42,23 @@ class MyApp extends StatelessWidget {
 
     );
   }
+
 }
+
+  _createDatabase() async{
+      String databasePath= await getDatabasesPath();
+      String databaseFileName="my_db.db";
+      int databaseVersion=1;
+      openDatabase(databasePath+"/"+databaseFileName,onCreate: (db, version) {
+        String createTableQuery="CREATE TABLE usercart(id INTEGER,cropname TEXT,quantity INTEGER,cropImageUrl TEXT)";
+        db.execute(createTableQuery);
+        print("created user cart db");
+      },
+      version: databaseVersion,
+      onUpgrade: (db, oldVersion, newVersion) {},
+      );
+}
+
 
 
 
