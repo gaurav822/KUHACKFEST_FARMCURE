@@ -1,8 +1,9 @@
 import 'package:agro_farm/Screens/navviews/cropspage.dart';
-import 'package:agro_farm/Screens/navviews/homepage.dart';
+import 'package:agro_farm/Screens/tabbarviews/homepage.dart';
 import 'package:agro_farm/Screens/navviews/mycartview.dart';
 import 'package:agro_farm/Screens/navviews/profilepage.dart';
 import 'package:agro_farm/Screens/navviews/walletpage.dart';
+import 'package:agro_farm/Screens/tabviews.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -16,7 +17,7 @@ class NavViewPage extends StatefulWidget {
 
 class _NavViewPageState extends State<NavViewPage> {
   int _currentIndex = 0;
-   List<Widget> pages = [HomePage(),CropsPage(),CartView(),WalletPage(),ProfilePage()];
+   List<Widget> pages = [CropsPage(),TabView(),CartView(),ProfilePage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,10 +48,10 @@ class _NavViewPageState extends State<NavViewPage> {
         },
         currentIndex: _currentIndex,
           items: [
-            BottomNavigationBarItem(label: "Home", icon:Icon(Icons.home)),
-            BottomNavigationBarItem(label: "Find Crops",icon: Image.asset("images/crop.png",height: 40,)),
+            BottomNavigationBarItem(label: "Recommend Crops",icon: Image.asset("images/crop.png",height: 40,)),
+            BottomNavigationBarItem(label: "Store", icon:Icon(Icons.shop)),
             BottomNavigationBarItem(label: "My Cart",icon: Icon(FontAwesomeIcons.cartPlus)),
-            BottomNavigationBarItem(label: "My Wallet",icon: Icon(Icons.wallet_travel)),
+            // BottomNavigationBarItem(label: "My Wallet",icon: Icon(Icons.wallet_travel)),
             BottomNavigationBarItem(label: "Profile",icon: Icon(FontAwesomeIcons.userCircle)),
           ],
         ),

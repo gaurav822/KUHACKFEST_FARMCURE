@@ -1,8 +1,5 @@
 import 'package:agro_farm/helper/imagehelper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -77,7 +74,7 @@ class _CartViewState extends State<CartView> {
                 height: 50,
                 minWidth: 100,
                 onPressed: (){},
-                child: Text("Proceed for Payment",style: TextStyle(color: Colors.white,fontSize: 16),),
+                child: Text("Proceed to Sell",style: TextStyle(color: Colors.white,fontSize: 16),),
                 color: Colors.green,
               ),
             )

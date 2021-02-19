@@ -4,6 +4,8 @@ import 'package:agro_farm/Custom_Widgets/progressdialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:ml_dataframe/ml_dataframe.dart';
 
 class CropsPage extends StatefulWidget {
   @override
@@ -85,9 +87,8 @@ class _CropsPageState extends State<CropsPage> {
     );
   }
 
-  _findBestCrops(){
+  _findBestCrops() async{
 
-    print("hello");
 
     if(humidityController.text.isEmpty){
       
@@ -120,7 +121,12 @@ class _CropsPageState extends State<CropsPage> {
         return ProgressDialog(message:"Finding best Crops for you...");
       }
     );
-    }
+
+    final rawCsvContent = await rootBundle.loadString('assets/datasets/crop_prediction_dataset.csv');
+    final samples = DataFrame.fromRawCsv(rawCsvContent);
+    final targetColumnName = 'label';
+  
+   }
     
   }
 

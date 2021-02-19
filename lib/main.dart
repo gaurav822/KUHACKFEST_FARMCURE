@@ -2,7 +2,7 @@
 
 import 'package:agro_farm/Screens/loginpage.dart';
 import 'package:agro_farm/Screens/navviewpage.dart';
-import 'package:agro_farm/Screens/navviews/homepage.dart';
+import 'package:agro_farm/Screens/tabbarviews/homepage.dart';
 import 'package:agro_farm/Screens/splashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

@@ -7,6 +7,14 @@ class WalletPage extends StatefulWidget {
 
 class _WalletPageState extends State<WalletPage> {
   @override
+  void initState() {
+    
+    super.initState();
+  }
+
+  
+  
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       

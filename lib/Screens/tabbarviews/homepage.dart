@@ -1,6 +1,5 @@
 import 'package:agro_farm/helper/imagehelper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
@@ -17,10 +16,35 @@ class _HomePageState extends State<HomePage> {
 
   List  cropsDetails= [
 
+     {
+      "image":rice,
+      "price":"Rs.200",
+      'name': 'Rice',
+      'quantity':0
+    },
+
     {
       "image":wheat,
       "price":"Rs.200",
-      'name': 'wheat',
+      'name': 'Wheat',
+      'quantity':0
+    },
+    {
+      "image":moong,
+      "price":"Rs.200",
+      'name': 'Moong Bean',
+      'quantity':0
+    },
+    {
+      "image":tea,
+      "price":"Rs.200",
+      'name': 'Tea',
+      'quantity':0
+    },
+    {
+      "image":millet,
+      "price":"Rs.200",
+      'name': 'Millet',
       'quantity':0
     },
     {
@@ -41,18 +65,8 @@ class _HomePageState extends State<HomePage> {
       'name': 'urad',
       'quantity':0
     },
-    {
-      "image":ginger,
-      "price":"Rs.200",
-      'name': 'ginger',
-      'quantity':0
-    },
-    {
-      "image":moong,
-      "price":"Rs.200",
-      'name': 'moong',
-      'quantity':0
-    },
+
+    
     {
       "image":jowar,
       "price":"Rs.200",
@@ -85,24 +99,6 @@ class _HomePageState extends State<HomePage> {
     }
   ];
 
-  SearchBar searchBar;
-
-  AppBar buildAppBar(BuildContext context) {
-    return new AppBar(
-      title: new Text('Welcome Farmer'),
-      centerTitle: true,
-      actions: [searchBar.getSearchAction(context)]
-    );
-  } 
-
-  _HomePageState() {
-    searchBar = new SearchBar(
-      inBar: false,
-      setState: setState,
-      onSubmitted: print,
-      buildDefaultAppBar: buildAppBar
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +113,7 @@ class _HomePageState extends State<HomePage> {
             print(result);
           },
         ),
-        appBar: searchBar.build(context),
+        
         body: SingleChildScrollView(
             child: Wrap(
             runSpacing: 20,
