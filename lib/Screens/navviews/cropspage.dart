@@ -154,7 +154,7 @@ class _CropsPageState extends State<CropsPage> {
 
                     
 else if(temperature>=27.01470397 && temperature<=29.914544300000003 && humidity>=80.03499648 && humidity<=89.99615558 && ph>=6.2189238929999995 && ph<=7.199495367999999 && rainfall>=36.12042927 && rainfall<=59.87232071 && soiltype==8){  
-  await Future.delayed(Duration(seconds: 1)).then((value) {
+  await Future.delayed(Duration(seconds: 5)).then((value) {
       Navigator.pop(context);
      });
 
@@ -388,7 +388,7 @@ else if(temperature>=23.012401800000003 && temperature<=43.67549305 && humidity>
 
 
 else if(temperature>=18.07132963 && temperature<=24.96273236 && humidity>=85.12912161 && humidity<=94.99897537 && ph>=5.561851831 && ph<=7.199504273 && rainfall>=102.51847590000001 && rainfall<=112.47509409999999 && soiltype==7){  
- await Future.delayed(Duration(seconds: 1)).then((value) {
+ await Future.delayed(Duration(seconds: 8)).then((value) {
       Navigator.pop(context);
      });
 
@@ -397,7 +397,7 @@ else if(temperature>=18.07132963 && temperature<=24.96273236 && humidity>=85.129
 
 
 else if(temperature>=24.04355803 && temperature<=26.98603693 && humidity>=80.02621335 && humidity<=89.98405233 && ph>=6.000975617000001 && ph<=6.956508826 && rainfall>=40.12650421 && rainfall<=59.75980023 && soiltype==8){  
- await Future.delayed(Duration(seconds: 1)).then((value) {
+ await Future.delayed(Duration(seconds: 8)).then((value) {
       Navigator.pop(context);
      });
 
@@ -423,17 +423,17 @@ else if(temperature>=24.04355803 && temperature<=26.98603693 && humidity>=80.026
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
+                    // mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text("Suggested Crop",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                      Text("Suggested Crop",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                       SizedBox(height: 20,),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(cropName,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(cropImageUrl,height: 200,width: 300,))
+                            child: Image.asset(cropImageUrl,height: 150,width: Get.width*.7))
                         ],
                       ),
                     ],
