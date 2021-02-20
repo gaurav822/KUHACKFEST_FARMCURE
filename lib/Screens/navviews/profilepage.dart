@@ -66,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Center(
                  child: 
                     QrImage(
-                    data: "Email : "+email+" Name : "+name+" Phone number : "+phoneNumber,
+                    data: "name: "+name+", phone number: "+phoneNumber+", email: "+email,
                     version: QrVersions.auto,
                     size: 200.0,
                    ),   

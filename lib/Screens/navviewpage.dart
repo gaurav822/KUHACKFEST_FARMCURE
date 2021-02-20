@@ -1,4 +1,5 @@
 import 'package:agro_farm/Screens/navviews/cropspage.dart';
+import 'package:agro_farm/Screens/navviews/farmerscan.dart';
 import 'package:agro_farm/Screens/navviews/mycartview.dart';
 import 'package:agro_farm/Screens/navviews/profilepage.dart';
 import 'package:agro_farm/Screens/tabviews.dart';
@@ -17,7 +18,7 @@ class NavViewPage extends StatefulWidget {
 class _NavViewPageState extends State<NavViewPage> {
   int _currentIndex = 0;
   int countItemsinCart=0;
-   List<Widget> pages = [CropsPage(),TabView(),CartView(),ProfilePage()];
+   List<Widget> pages = [CropsPage(),TabView(),CartView(),ProfilePage(), FarmerScanner()];
 
 
  
@@ -59,6 +60,8 @@ class _NavViewPageState extends State<NavViewPage> {
                 Icon(FontAwesomeIcons.cartPlus),),
             // BottomNavigationBarItem(label: "My Wallet",icon: Icon(Icons.wallet_travel)),
             BottomNavigationBarItem(label: "Profile",icon: Icon(FontAwesomeIcons.userCircle)),
+
+            BottomNavigationBarItem(label: "Farmer_Scan",icon: Icon(Icons.verified)),
           ],
         ),
     );

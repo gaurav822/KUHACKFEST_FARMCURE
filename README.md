@@ -1,6 +1,24 @@
 # FARM CURE
 
-A new Flutter project.
+A Flutter Project aimed to help farmer find the suitable crops for harvesting as well as get required seeds and fertizer from the market.
+
+## KEY FEATURES
+
+1) CROP SUGGESTION SYSTEM (taking inputs like temperature, humidity, soil type etc.)
+
+2) FARMER CAN KNOW REAL-MARKET PRICE OF CROP SEEDS & REQUIRED FERTILIZER.
+
+3) SEED AND FERTILIZER PURCHASE STORE.
+
+4)FARMER CARD (A QR CODE THAT CAN BE VERFIED THROUGH OUR SCANNER APP ONLY). THIS HELPS TO FIND OUT GENUINE FARMERS   REGISTERED WITH US.
+
+## GUIDE TO LAUNCH AND USE APP.
+
+1) Open apk file folder (download apk file and install it).
+
+2)For Login: email: test@gmail.com  pass:test@123
+
+3)All done!
 
 ## Getting Started
 

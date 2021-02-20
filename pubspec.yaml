@@ -60,6 +60,8 @@ dependencies:
   ml_dataframe: ^0.4.0
   ml_preprocessing: ^5.2.2
 
+  qr_code_scanner: ^0.3.5
+
 
 dev_dependencies:
   flutter_test:
@@ -129,9 +131,10 @@ flutter:
    - images/papaya.jpg
    - images/pomegranate.jpg
    - images/watermelon.jpg
+   - images/grape.jpg
    - images/jute.jpg
    - images/seedicon.png
-
+   - images/kidneybeans.jpg
    - images/organicliquid.jpg
    - images/bonemeal.jpg
    - images/compost.jpg

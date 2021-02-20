@@ -118,7 +118,7 @@ class _CartViewState extends State<CartView> {
   }
 
 
-  Widget _eachCropsCard(String image,String name, String quant,int i){
+  Widget _eachCropsCard(String image,String name,int quant,int i){
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -143,7 +143,7 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  Widget cropDetails(String name,String image,String quantity,int i){
+  Widget cropDetails(String name,String image,int quant,int i){
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       
@@ -162,24 +162,24 @@ class _CartViewState extends State<CartView> {
                   onTap: () async {
                     // _quantity--;
                     
-                      if(int.parse(cropsDetails[i]['quantity'])>0){
-                         int res=int.parse(cropsDetails[i]['quantity'])-1;
-                         Database database= await _openDB();
-                         await database.update("usercart", {"quantity":res.toString()}, where: 'id=?', whereArgs: [cropsDetails[i]['id']]);
-                         print("data updated");
-                      }  
+                      // if(int.parse(cropsDetails[i]['quantity'])>0){
+                      //    int res=int.parse(cropsDetails[i]['quantity'])-1;
+                      //    Database database= await _openDB();
+                      //    await database.update("usercart", {"quantity":res.toString()}, where: 'id=?', whereArgs: [cropsDetails[i]['id']]);
+                      //    print("data updated");
+                      // }  
   
                   },
                   child: Text("-",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                 SizedBox(width: 20,),
-                Text(quantity.toString(),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                Text(quant.toString(),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
                 SizedBox(width: 20,),
                 GestureDetector(
                   onTap: (){
                     // _quantity--;
                     setState(() {
                       
-                    int.parse(cropsDetails[i]['quantity']);
+                    // int.parse(cropsDetails[i]['quantity']);
                     
                     });
                   },
@@ -205,7 +205,7 @@ class _CartViewState extends State<CartView> {
             ],
           ),
 
-          Text("Total: Rs "+ (int.parse(cropsDetails[i]['quantity'])*100).toString()),
+          Text("Total: Rs "+ ((cropsDetails[i]['quantity'])*100).toString()),
           
         
       ],

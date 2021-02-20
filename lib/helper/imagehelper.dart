@@ -38,6 +38,7 @@ String blackgram=    "images/blackgram.jpeg";
  String papaya=   "images/papaya.jpg";
   String pomegranate=   "images/pomegranate.jpg";
  String watermelon=   "images/watermelon.jpg";
+ String grape=   "images/grape.jpg";
  String seedicon="images/seedicon.png";
 
 String oraganicliquid="images/organicliquid.jpg";
@@ -50,3 +51,5 @@ String alfalfa="images/alfalfa.png";
 String bloodmeal="images/bloodmeal.jpg";
 String feathermeal="images/feathermeal.jpg";
 String liquidkelp="images/liquidkelp.jpg";
+
+String kidneybeans="images/kidneybeans.jpg";
