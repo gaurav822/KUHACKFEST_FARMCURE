@@ -116,7 +116,7 @@ class _CropsPageState extends State<CropsPage> {
       // barrierDismissible: false,
       builder: (BuildContext context)
       {
-        return ProgressDialog(message:"Finding best Crops for you...");
+        return ProgressDialog(message:"Finding best Crop for you...");
       }
     );
 
@@ -127,7 +127,7 @@ class _CropsPageState extends State<CropsPage> {
     
   }
 
-  _findOptimalCrop(){
+  _findOptimalCrop() async{
      double temperature = double.parse(temperatureController.text);
      double humidity = double.parse(humidityController.text);
      double ph = double.parse(phController.text);
@@ -136,8 +136,42 @@ class _CropsPageState extends State<CropsPage> {
 
      if(temperature>=20.0454142 && temperature<=26.80079604){
       print("Rice");
+      await Future.delayed(Duration(seconds: 8)).then((value) {
+      Navigator.pop(context);
+    });
+
+      showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return Container(
+                height: 300,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20)
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text("Suggested Crop",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                      SizedBox(height: 20,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text("Rice",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset("images/rice.jpg",height: 200,width: 300,))
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
+      );
      }
-    
   }
 
   Widget _inputDataSetForm(String textHint,TextEditingController textEditingController){

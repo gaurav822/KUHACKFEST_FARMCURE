@@ -64,6 +64,7 @@ class _LoginPageState extends State<LoginPage>
   Widget build(BuildContext context) {
     return SafeArea(
           child: new Scaffold(
+          resizeToAvoidBottomPadding: false,
         key: _scaffoldKey,
         
         body: NotificationListener<OverscrollIndicatorNotification>(
@@ -95,11 +96,9 @@ class _LoginPageState extends State<LoginPage>
                                   decoration: BoxDecoration(),
                                   height: 150,
                                   width: 150,
-                                  child: Hero(
-                                    tag: "farmer",
                                      child: CircleAvatar(
                                       backgroundImage: AssetImage("images/farmer.jpg")),
-                                  ))),
+                                  )),
                       
                         
                           Padding(

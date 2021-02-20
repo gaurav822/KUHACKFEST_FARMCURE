@@ -40,19 +40,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(height: Get.height*.1,),
-                  Text("Welcome to Agro Farming", style: TextStyle(color: Colors.green,fontSize: 25,fontWeight: FontWeight.bold),),
+                 
                   SizedBox(height: Get.height*.01,),
                   // Text("(We help you grow! we help you find best crops)",style: TextStyle(color: Colors.deepOrange),),
                   SizedBox(height: Get.height*.1,),
-                  Container(
-                        decoration: BoxDecoration(),
-                        height: 150,
-                        width: 150,
-                        child: Hero(
-                          tag: "farmer",
-                          child: CircleAvatar(
-                          backgroundImage: AssetImage("images/farmer.jpg")),
-                        )),
+                 
+                  Image.asset("images/farmcure.png",height: 200,),
+                        
                   SizedBox(height: Get.height*.3,),
                   Center(child: CircularProgressIndicator(backgroundColor: Colors.white,))
                 ],

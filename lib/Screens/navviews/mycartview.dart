@@ -66,7 +66,7 @@ class _CartViewState extends State<CartView> {
         child: Scaffold(
           
         body:cropsDetails.isEmpty? 
-        Center(child: CircularProgressIndicator())
+        Center(child: Text("Cart is Empty!",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),))
         :SingleChildScrollView(
             child: Column(
               children: [
@@ -95,8 +95,15 @@ class _CartViewState extends State<CartView> {
               child: MaterialButton(
                 height: 50,
                 minWidth: 100,
-                onPressed: (){
-                  Fluttertoast.showToast(msg: "Order Placed Successfylly");
+                onPressed: () async{
+                  Fluttertoast.showToast(msg: "Order Placed Successfully",backgroundColor: Colors.blue);
+                  cropsDetails=[];
+                  Database database= await _openDB();
+                  database.delete("usercart");
+                  print("data deleted");
+                  setState(() {
+                    
+                  });
                 },
                 child: Text("Place Order",style: TextStyle(color: Colors.white,fontSize: 16),),
                 color: Colors.green,
