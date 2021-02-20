@@ -18,35 +18,173 @@ class _HomePageState extends State<HomePage> {
 
      {
       "image":rice,
-      "price":"Rs.200",
+      "price":"Rs.100",
       'name': 'Rice',
       'quantity':0
     },
 
     {
       "image":wheat,
-      "price":"Rs.200",
+      "price":"Rs.100",
       'name': 'Wheat',
       'quantity':0
     },
     {
       "image":moong,
-      "price":"Rs.200",
+      "price":"Rs.100",
       'name': 'Moong Bean',
       'quantity':0
     },
     {
       "image":tea,
-      "price":"Rs.200",
+      "price":"Rs.100",
       'name': 'Tea',
       'quantity':0
     },
     {
       "image":millet,
-      "price":"Rs.200",
+      "price":"Rs.100",
       'name': 'Millet',
       'quantity':0
     },
+    {
+      "image":maize,
+      "price":"Rs.100",
+      'name': 'Maize',
+      'quantity':0
+    },
+    {
+      "image":lentil,
+      "price":"Rs.100",
+      'name': 'Lentil',
+      'quantity':0
+    },
+    {
+      "image":jute,
+      "price":"Rs.100",
+      'name': 'Lentil',
+      'quantity':0
+    },
+
+    {
+      "image":coffee,
+      "price":"Rs.300",
+      'name': 'Coffee',
+      'quantity':0
+    },
+
+    {
+      "image":peas,
+      "price":"Rs.150",
+      'name': 'Peas',
+      'quantity':0
+    },
+
+    {
+      "image":rubber,
+      "price":"Rs.100",
+      'name': 'Rubber',
+      'quantity':0
+    },
+
+    {
+      "image":sugarcane,
+      "price":"Rs.80",
+      'name': 'Sugarcane',
+      'quantity':0
+    },
+
+    {
+      "image":tobacco,
+      "price":"Rs.110",
+      'name': 'Tobacco',
+      'quantity':0
+    },
+
+    {
+      "image":mothbeans,
+      "price":"Rs.155",
+      'name': 'Mothbeans',
+      'quantity':0
+    },
+
+    {
+      "image":coconut,
+      "price":"Rs.145",
+      'name': 'Coconut',
+      'quantity':0
+    },
+
+    {
+      "image":blackgram,
+      "price":"Rs.200",
+      'name': 'Blackgram',
+      'quantity':0
+    },
+
+    {
+      "image":adzukibeans,
+      "price":"Rs.200",
+      'name': 'Adzukibeans',
+      'quantity':0
+    },
+
+    {
+      "image":pigeonpeas,
+      "price":"Rs.200",
+      'name': 'Pigeonpeas',
+      'quantity':0
+    },
+
+    {
+      "image":chickpea,
+      "price":"Rs.200",
+      'name': 'Chickpea',
+      'quantity':0
+    },
+
+    {
+      "image":apple,
+      "price":"Rs.200",
+      'name': 'Apple',
+      'quantity':0
+    },
+
+    {
+      "image":mango,
+      "price":"Rs.200",
+      'name': 'Mango',
+      'quantity':0
+    },
+
+    {
+      "image":orange,
+      "price":"Rs.200",
+      'name': 'Orange',
+      'quantity':0
+    },
+
+    {
+      "image":papaya,
+      "price":"Rs.200",
+      'name': 'Papaya',
+      'quantity':0
+    },
+
+    {
+      "image":pomegranate,
+      "price":"Rs.200",
+      'name': 'Pomegranate',
+      'quantity':0
+    },
+
+    {
+      "image":watermelon,
+      "price":"Rs.200",
+      'name': 'Watermelon',
+      'quantity':0
+    },
+
     {
       "image":mustard,
       "price":"Rs.200",
@@ -99,7 +237,6 @@ class _HomePageState extends State<HomePage> {
     }
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -109,6 +246,8 @@ class _HomePageState extends State<HomePage> {
             onPressed: () async{
               
             Database database= await _openDB();
+            // database.delete("usercart",where: "id=?",whereArgs: [4]);
+            // print("data deleted");
             List result=await database.query("usercart");
             print(result);
           },
@@ -181,6 +320,7 @@ class _HomePageState extends State<HomePage> {
                 "cropImageUrl": image,
                 };
                 await database.insert("usercart", cartData);
+              
                 Fluttertoast.showToast(msg: "Added to Cart!");
                 cropsDetails[i]['quantity']=0;
                 setState(() {

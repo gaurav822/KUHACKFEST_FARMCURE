@@ -15,7 +15,7 @@ class CropsPage extends StatefulWidget {
 class _CropsPageState extends State<CropsPage> {
   TextEditingController humidityController= TextEditingController();
   TextEditingController soiltypeController= TextEditingController();
-  TextEditingController moistureController= TextEditingController();
+  TextEditingController phController= TextEditingController();
   TextEditingController temperatureController= TextEditingController();
   TextEditingController rainfallController= TextEditingController();
   FToast fToast;
@@ -56,7 +56,7 @@ class _CropsPageState extends State<CropsPage> {
                     ),
                     _inputDataSetForm("Humidity",humidityController),
                     _inputDataSetForm("Soil Type",soiltypeController),
-                    _inputDataSetForm("Enter Moisture",moistureController),
+                    _inputDataSetForm("Enter Ph Value",phController),
                     _inputDataSetForm("Enter temperature",temperatureController),
                     _inputDataSetForm("rainfall",rainfallController),
 
@@ -99,8 +99,8 @@ class _CropsPageState extends State<CropsPage> {
       showToast(toastmsg: "Please enter soil type");
     }
 
-    else if(moistureController.text.isEmpty){
-      showToast(toastmsg: "Please enter moisture");
+    else if(phController.text.isEmpty){
+      showToast(toastmsg: "Please enter Ph value");
     }
   
 
@@ -122,11 +122,23 @@ class _CropsPageState extends State<CropsPage> {
       }
     );
 
-    final rawCsvContent = await rootBundle.loadString('assets/datasets/crop_prediction_dataset.csv');
-    final samples = DataFrame.fromRawCsv(rawCsvContent);
-    final targetColumnName = 'label';
-  
+    _findOptimalCrop();
+
+
    }
+    
+  }
+
+  _findOptimalCrop(){
+     double temperature = double.parse(temperatureController.text);
+     double humidity = double.parse(humidityController.text);
+     double ph = double.parse(phController.text);
+     double rainfall = double.parse(rainfallController.text);
+     int soiltype = int.parse(soiltypeController.text);
+
+     if(temperature>=20.0454142 && temperature<=26.80079604){
+      print("Rice");
+     }
     
   }
 
@@ -149,7 +161,7 @@ class _CropsPageState extends State<CropsPage> {
       ),
       margin: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
       child: TextField(
-        
+        keyboardType: TextInputType.number,
         controller: textEditingController,
         decoration: InputDecoration(
           hintText: textHint,

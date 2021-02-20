@@ -24,7 +24,8 @@ class _TabViewState extends State<TabView> {
           ),
         ),
         body: TabBarView(
-          physics: BouncingScrollPhysics(),
+          
+          // physics: BouncingScrollPhysics(),
           children: [HomePage(), Container()],
         ),
 
@@ -34,7 +35,7 @@ class _TabViewState extends State<TabView> {
   }
 
   Widget _seedTab() {
-    return Image.asset(seed,height: 50,width: 50,);
+    return Image.asset(seedicon,height: 50,width: 50,);
   }
 
   Widget _fertilizerTab() {

@@ -85,7 +85,6 @@ flutter:
    - images/barley.jpg
    - images/chilli.jpg
    - images/gram.jpg
-   - images/groundnut.png
    - images/jowar.jpg
    - images/maize.jpg
    - images/moong.jpg
@@ -108,6 +107,36 @@ flutter:
    - images/rice.jpg
    - images/tea.jpg
    - images/millet.jpg
+   - images/lentil.jpg
+   - images/jute.jpg
+   - images/coffee.jpg
+   - images/groundnut.jpg
+   - images/peas.jpg
+   - images/rubber.jpg
+   - images/sugarcane.jpg
+   - images/tobacco.jpg
+   - images/kidneybeans.jpg
+   - images/mothbeans.jpg
+   - images/coconut.jpg
+   - images/blackgram.jpeg
+   - images/adzukibeans.jpg
+   - images/pigeonpeas.png
+   - images/chickpea.jpg
+   - images/apple.jpg
+   - images/mango.jpg
+   - images/muskmelon.jpeg
+   - images/orange.jpg
+   - images/papaya.jpg
+   - images/pomegranate.jpg
+   - images/watermelon.jpg
+   - images/jute.jpg
+   - images/seedicon.png
+   
+
+
+
+
+
   #   - images/a_dot_ham.jpeg
 
    - assets/crop_detection.tflite

@@ -2,6 +2,7 @@ import 'package:agro_farm/helper/imagehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqflite.dart';
 
 class CartView extends StatefulWidget {
    static const String idScreen="cartview";
@@ -12,50 +13,70 @@ class CartView extends StatefulWidget {
 class _CartViewState extends State<CartView> {
   // int _quantity=0;
 
-  List  cropsDetails= [
+  // List  cropsDetails= [
 
-    {
-      "image":wheat,
-      "price":"Rs.200",
-      'name': 'wheat',
-      'quantity':0
-    },
-    {
-      "image":mustard,
-      "price":"Rs.200",
-      'name': 'mustard',
-      'quantity':0
-    },
-    {
-      "image":tur,
-      "price":"Rs.200",
-      'name': 'tur',
-      'quantity':0
-    },
-    {
-      "image":urad,
-      "price":"Rs.200",
-      'name': 'urad',
-      'quantity':0
-    },
+  //   {
+  //     "image":wheat,
+  //     "price":"Rs.200",
+  //     'name': 'wheat',
+  //     'quantity':0
+  //   },
+  //   {
+  //     "image":mustard,
+  //     "price":"Rs.200",
+  //     'name': 'mustard',
+  //     'quantity':0
+  //   },
+  //   {
+  //     "image":tur,
+  //     "price":"Rs.200",
+  //     'name': 'tur',
+  //     'quantity':0
+  //   },
+  //   {
+  //     "image":urad,
+  //     "price":"Rs.200",
+  //     'name': 'urad',
+  //     'quantity':0
+  //   },
     
-  ];
+  // ];
+
+  List cropsDetails=[];
+
+  @override
+  void initState() {
+    super.initState();
+    _readMyCart();
+  }
+
+  _readMyCart() async{
+    Database database= await _openDB();
+    List cartData=await database.query("usercart");
+    setState(() {
+      cropsDetails=cartData;
+    });
+    print(cartData);
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
           
-        body: SingleChildScrollView(
+        body:cropsDetails.isEmpty? 
+        Center(child: CircularProgressIndicator())
+        :SingleChildScrollView(
             child: Column(
-                          children: [Container(
-                height: Get.height,
+              children: [
+                Container(
+                // height: Get.height,
                 child: Wrap(
                  direction: Axis.horizontal,
                  alignment: WrapAlignment.start,
                   children: [
                      
-                  for(int i=0;i<cropsDetails.length;i++) _eachCropsCard(cropsDetails[i]['image'],cropsDetails[i]['name'],cropsDetails[i]['price'],cropsDetails[i]['quantity'],i)
+                  for(int i=0;i<cropsDetails.length;i++) _eachCropsCard(cropsDetails[i]['cropImageUrl'],cropsDetails[i]['cropname'],cropsDetails[i]['quantity'],i)
                   
                   ],
                 
@@ -74,7 +95,7 @@ class _CartViewState extends State<CartView> {
                 height: 50,
                 minWidth: 100,
                 onPressed: (){},
-                child: Text("Proceed to Sell",style: TextStyle(color: Colors.white,fontSize: 16),),
+                child: Text("Proceed to Buy",style: TextStyle(color: Colors.white,fontSize: 16),),
                 color: Colors.green,
               ),
             )
@@ -87,7 +108,7 @@ class _CartViewState extends State<CartView> {
   }
 
 
-  Widget _eachCropsCard(String image,String name,String price, int quant, int i){
+  Widget _eachCropsCard(String image,String name, String quant,int i){
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -102,7 +123,7 @@ class _CartViewState extends State<CartView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              cropDetails(name,price,image,quant,i),
+              cropDetails(name,image,quant,i),
               cropImage(image),
               
             ],
@@ -112,7 +133,7 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  Widget cropDetails(String name,String price,String image,int quantity,int i){
+  Widget cropDetails(String name,String image,String quantity,int i){
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       
@@ -128,14 +149,16 @@ class _CartViewState extends State<CartView> {
                 Text("Quantity"),
                 SizedBox(width: 20,),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () async {
                     // _quantity--;
-                    setState(() {
-                      if(cropsDetails[i]['quantity']>0){
-                         cropsDetails[i]['quantity']--;
-                      }
-                     
-                    });
+                    
+                      if(int.parse(cropsDetails[i]['quantity'])>0){
+                         int res=int.parse(cropsDetails[i]['quantity'])-1;
+                         Database database= await _openDB();
+                         await database.update("usercart", {"quantity":res.toString()}, where: 'id=?', whereArgs: [cropsDetails[i]['id']]);
+                         print("data updated");
+                      }  
+  
                   },
                   child: Text("-",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                 SizedBox(width: 20,),
@@ -146,8 +169,7 @@ class _CartViewState extends State<CartView> {
                     // _quantity--;
                     setState(() {
                       
-                    cropsDetails[i]['quantity']++;
-                      
+                    int.parse(cropsDetails[i]['quantity']);
                     
                     });
                   },
@@ -159,15 +181,21 @@ class _CartViewState extends State<CartView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('Total : Rs 200'),
+              Text('Rs 200 per kg'),
               SizedBox(width: 20,),
               IconButton(
                 tooltip: "Remove from Cart",
                 icon: Icon(Icons.delete_forever_sharp,color: Colors.red,),
-                onPressed: null
+                onPressed: () async{
+                  Database database= await _openDB();
+                  database.delete("usercart",where: "id=?",whereArgs: [cropsDetails[i]['id']]);
+                  print("data deleted");
+                }
                 )
             ],
           ),
+
+          Text("Total: Rs "+ (int.parse(cropsDetails[i]['quantity'])*100).toString()),
           
         
       ],
