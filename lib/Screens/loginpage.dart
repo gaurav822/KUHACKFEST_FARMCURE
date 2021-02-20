@@ -1,7 +1,6 @@
 
 import 'package:agro_farm/Custom_Widgets/progressdialog.dart';
 import 'package:agro_farm/Screens/navviewpage.dart';
-import 'package:agro_farm/style/theme.dart';
 import 'package:agro_farm/utils/bubble_indication_painter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

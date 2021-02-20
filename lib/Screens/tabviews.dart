@@ -1,3 +1,4 @@
+import 'package:agro_farm/Screens/tabbarviews/fertilizers.dart';
 import 'package:agro_farm/Screens/tabbarviews/homepage.dart';
 import 'package:agro_farm/helper/imagehelper.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class _TabViewState extends State<TabView> {
         body: TabBarView(
           
           // physics: BouncingScrollPhysics(),
-          children: [HomePage(), Container()],
+          children: [HomePage(), FertilizerPage()],
         ),
 
         

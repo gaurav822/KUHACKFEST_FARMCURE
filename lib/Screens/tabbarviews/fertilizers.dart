@@ -4,237 +4,82 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 
-class HomePage extends StatefulWidget {
-   static const String idScreen="home";
+class FertilizerPage extends StatefulWidget {
+   static const String idScreen="fertilizer";
   @override
-  _HomePageState createState() => _HomePageState();
+  _FertilizerPageState createState() => _FertilizerPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _FertilizerPageState extends State<FertilizerPage> {
 
   // int _quantity=0;
 
   List  cropsDetails= [
 
      {
-      "image":rice,
+      "image":oraganicliquid,
       "price":"Rs.100",
-      'name': 'Rice',
+      'name': 'Oraganicliquid',
       'quantity':0
     },
 
     {
-      "image":wheat,
+      "image":bonemeal,
       "price":"Rs.100",
-      'name': 'Wheat',
+      'name': 'bonemeal',
       'quantity':0
     },
     {
-      "image":moong,
+      "image":compost,
       "price":"Rs.100",
-      'name': 'Moong Bean',
+      'name': 'compost',
       'quantity':0
     },
     {
-      "image":tea,
+      "image":manure,
       "price":"Rs.100",
-      'name': 'Tea',
+      'name': 'manure',
       'quantity':0
     },
     {
-      "image":millet,
+      "image":rockphosphate,
       "price":"Rs.100",
-      'name': 'Millet',
+      'name': 'rockphosphate',
       'quantity':0
     },
     {
-      "image":maize,
+      "image":cottonseed,
       "price":"Rs.100",
-      'name': 'Maize',
+      'name': 'cottonseed',
       'quantity':0
     },
     {
-      "image":lentil,
+      "image":alfalfa,
       "price":"Rs.100",
-      'name': 'Lentil',
+      'name': 'alfalfa',
       'quantity':0
     },
     {
-      "image":jute,
+      "image":bloodmeal,
       "price":"Rs.100",
-      'name': 'Lentil',
+      'name': 'bloodmeal',
+      'quantity':0
+    },
+    {
+      "image":feathermeal,
+      "price":"Rs.100",
+      'name': 'feathermeal',
       'quantity':0
     },
 
     {
-      "image":coffee,
+      "image":liquidkelp,
       "price":"Rs.300",
-      'name': 'Coffee',
-      'quantity':0
-    },
-
-    {
-      "image":peas,
-      "price":"Rs.150",
-      'name': 'Peas',
-      'quantity':0
-    },
-
-    {
-      "image":rubber,
-      "price":"Rs.100",
-      'name': 'Rubber',
-      'quantity':0
-    },
-
-    {
-      "image":sugarcane,
-      "price":"Rs.80",
-      'name': 'Sugarcane',
-      'quantity':0
-    },
-
-    {
-      "image":tobacco,
-      "price":"Rs.110",
-      'name': 'Tobacco',
-      'quantity':0
-    },
-
-    {
-      "image":mothbeans,
-      "price":"Rs.155",
-      'name': 'Mothbeans',
-      'quantity':0
-    },
-
-    {
-      "image":coconut,
-      "price":"Rs.145",
-      'name': 'Coconut',
-      'quantity':0
-    },
-
-    {
-      "image":blackgram,
-      "price":"Rs.200",
-      'name': 'Blackgram',
-      'quantity':0
-    },
-
-    {
-      "image":adzukibeans,
-      "price":"Rs.200",
-      'name': 'Adzukibeans',
-      'quantity':0
-    },
-
-    {
-      "image":pigeonpeas,
-      "price":"Rs.200",
-      'name': 'Pigeonpeas',
-      'quantity':0
-    },
-
-    {
-      "image":chickpea,
-      "price":"Rs.200",
-      'name': 'Chickpea',
-      'quantity':0
-    },
-
-    {
-      "image":apple,
-      "price":"Rs.200",
-      'name': 'Apple',
-      'quantity':0
-    },
-
-    {
-      "image":mango,
-      "price":"Rs.200",
-      'name': 'Mango',
-      'quantity':0
-    },
-
-    {
-      "image":orange,
-      "price":"Rs.200",
-      'name': 'Orange',
-      'quantity':0
-    },
-
-    {
-      "image":papaya,
-      "price":"Rs.200",
-      'name': 'Papaya',
-      'quantity':0
-    },
-
-    {
-      "image":pomegranate,
-      "price":"Rs.200",
-      'name': 'Pomegranate',
-      'quantity':0
-    },
-
-    {
-      "image":watermelon,
-      "price":"Rs.200",
-      'name': 'Watermelon',
-      'quantity':0
-    },
-
-    {
-      "image":mustard,
-      "price":"Rs.200",
-      'name': 'mustard',
-      'quantity':0
-    },
-    {
-      "image":tur,
-      "price":"Rs.200",
-      'name': 'tur',
-      'quantity':0
-    },
-    {
-      "image":urad,
-      "price":"Rs.200",
-      'name': 'urad',
+      'name': 'liquidkelp',
       'quantity':0
     },
 
     
-    {
-      "image":jowar,
-      "price":"Rs.200",
-      'name': 'jowar',
-      'quantity':0
-    },
-    {
-      "image":chilli,
-      "price":"Rs.200",
-      'name': 'chilli',
-      'quantity':0
-    },
-    {
-      "image":rapeseed,
-      "price":"Rs.200",
-      'name': 'rapeseed',
-      'quantity':0
-    },
-    {
-      "image":redgram,
-      "price":"Rs.200",
-      'name': 'redgram',
-      'quantity':0
-    },
-    {
-      "image":groundnut,
-      "price":"Rs.200",
-      'name': 'groundnut',
-      'quantity':0
-    }
   ];
 
   @override

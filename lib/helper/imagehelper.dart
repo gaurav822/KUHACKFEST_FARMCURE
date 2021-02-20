@@ -38,4 +38,15 @@ String blackgram=    "images/blackgram.jpeg";
  String papaya=   "images/papaya.jpg";
   String pomegranate=   "images/pomegranate.jpg";
  String watermelon=   "images/watermelon.jpg";
- String seedicon=   "images/seedicon.png";
+ String seedicon="images/seedicon.png";
+
+String oraganicliquid="images/organicliquid.jpg";
+String bonemeal="images/bonemeal.jpg";
+String compost="images/compost.jpg";
+String manure="images/manure.jpg";
+String rockphosphate="images/rockphosphate.png";
+String cottonseed="images/cottonseed.jpg";
+String alfalfa="images/alfalfa.png";
+String bloodmeal="images/bloodmeal.jpg";
+String feathermeal="images/feathermeal.jpg";
+String liquidkelp="images/liquidkelp.jpg";

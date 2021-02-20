@@ -1,8 +1,9 @@
-import 'package:agro_farm/helper/imagehelper.dart';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqflite.dart';
+
 
 class CartView extends StatefulWidget {
    static const String idScreen="cartview";
@@ -94,8 +95,10 @@ class _CartViewState extends State<CartView> {
               child: MaterialButton(
                 height: 50,
                 minWidth: 100,
-                onPressed: (){},
-                child: Text("Proceed to Buy",style: TextStyle(color: Colors.white,fontSize: 16),),
+                onPressed: (){
+                  Fluttertoast.showToast(msg: "Order Placed Successfylly");
+                },
+                child: Text("Place Order",style: TextStyle(color: Colors.white,fontSize: 16),),
                 color: Colors.green,
               ),
             )
